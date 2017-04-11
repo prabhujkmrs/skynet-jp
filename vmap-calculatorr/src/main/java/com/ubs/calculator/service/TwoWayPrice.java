@@ -1,6 +1,7 @@
 package com.ubs.calculator.service;
 
 import com.ubs.calculator.model.Instrument;
+import com.ubs.calculator.model.Market;
 import com.ubs.calculator.model.State;
 
 /**
@@ -17,7 +18,7 @@ public interface TwoWayPrice {
 	 * @throws Exception An exception raised during the execution of the method due to an error
 	 */
 	
-	Instrument getInstrument() throws Exception;
+	Instrument getInstrument(Market market) throws Exception;
 	
 	/**
 	 * 

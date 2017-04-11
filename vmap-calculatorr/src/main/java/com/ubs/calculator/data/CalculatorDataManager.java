@@ -2,7 +2,9 @@ package com.ubs.calculator.data;
 
 import java.util.Map;
 
+import com.ubs.calculator.model.Market;
 import com.ubs.calculator.service.MarketUpdate;
+import com.ubs.calculator.service.TwoWayPrice;
 
 
 /**
@@ -19,6 +21,6 @@ public interface CalculatorDataManager {
 	 * @return Queue of strings
 	 * @throws Exception An exception raised during the execution of the method due to an error.
 	 */
-	public Map<Integer,MarketUpdate> getMarketPriceData() throws Exception; 
+	public TwoWayPrice getMarketPriceData(Market market) throws Exception; 
 
 }

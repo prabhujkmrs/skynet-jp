@@ -15,9 +15,7 @@ public class CalculatorImpl implements Calculator {
 	@Override
 	public TwoWayPrice applyMarketUpdate(MarketUpdate twoWayMarketPrice) throws Exception {
 		
-		
-		
-		return null;
+		return twoWayMarketPrice.getTwoWayPrice();
 	}
 	
 	
