@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util
+      http://www.springframework.org/schema/util/spring-util.xsd">
+
+<!-- Scan all spring components and services -->	
+	<context:component-scan base-package="com.ubs.calculator"></context:component-scan>
+	
+	<!-- Enable the use of annotations in the classes -->	
+	<context:annotation-config></context:annotation-config>
+
+	<!-- Configure the placeholder for the properties	 -->  
+	<context:property-placeholder location="classpath:application.properties"></context:property-placeholder>	
+	
+	<bean id="twowayPrice1" class="com.ubs.calculator.service.impl.TwoWayPriceImpl">
+		<property name="instrument" value="INSTRUMENT1"></property>
+		<property name="state" value="FIRM"></property>
+		<property name="bidPrice" value="50.0"></property>
+		<property name="offerAmount" value="100.00"></property>
+		<property name="offerPrice" value="80.00"></property>
+		<property name="bidAmount" value="60.0"></property>
+	</bean>
+	
+	<bean id="twowayPrice2" class="com.ubs.calculator.service.impl.TwoWayPriceImpl">
+		<property name="instrument" value="INSTRUMENT1"></property>
+		<property name="state" value="INDICATIVE"></property>
+		<property name="bidPrice" value="60.0"></property>
+		<property name="offerAmount" value="90.00"></property>
+		<property name="offerPrice" value="70.00"></property>
+		<property name="bidAmount" value="50.0"></property>
+	</bean>
+	
+	<bean id="marketUpdate1" class="com.ubs.calculator.service.impl.MarketUpdateImpl">
+	<property name="market" value="MARKET10"></property>
+	<property name="twowayprice" ref="twowayPrice1"></property>
+	</bean>
+	
+	<bean id="marketUpdate2" class="com.ubs.calculator.service.impl.MarketUpdateImpl">
+	<property name="market" value="MARKET20"></property>
+	<property name="twowayprice" ref="twowayPrice2"></property>
+	</bean>
+	
+	<bean id="calculatorDataManager" class="com.ubs.calculator.data.impl.CalculatorDataManagerImpl">
+		<map>
+		<entry key="0" value-ref="marketUpdate1"></entry>
+		<entry key="1" value-ref="marketUpdate2"></entry>
+		</map>
+	</bean>
+
+</beans>
