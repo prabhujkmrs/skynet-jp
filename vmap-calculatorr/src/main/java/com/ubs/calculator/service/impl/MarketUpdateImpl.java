@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.ubs.calculator.data.CalculatorDataManager;
 import com.ubs.calculator.data.impl.CalculatorDataManagerImpl;
 import com.ubs.calculator.model.Instrument;
 import com.ubs.calculator.model.Market;

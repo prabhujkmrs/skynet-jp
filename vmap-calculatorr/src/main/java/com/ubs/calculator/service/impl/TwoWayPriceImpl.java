@@ -122,55 +122,7 @@ public class TwoWayPriceImpl implements TwoWayPrice {
 
 	public void setOffer(double offer) {
 		this.offer = offer;
-	}
-
-
-	
-	public double getBidPrice(Market m) throws Exception {
-		
-		CalculatorDataManagerImpl cdmi = new CalculatorDataManagerImpl();
-		
-		TwoWayPrice twp = cdmi.getMarketPriceData(m);
-		double bPrice = twp.getBidPrice();
-		return bPrice;
-		
-	}
-
-
-	
-	public double getOfferAmount(Market m) throws Exception {
-		
-		CalculatorDataManagerImpl cdmi = new CalculatorDataManagerImpl();
-		
-		TwoWayPrice twp = cdmi.getMarketPriceData(m);
-		double oAmt = twp.getOfferAmount();
-		return oAmt;
-	}
-
-
-	
-	public double getOfferPrice(Market m) throws Exception {
-		
-		CalculatorDataManagerImpl cdmi = new CalculatorDataManagerImpl();
-		
-		TwoWayPrice twp = cdmi.getMarketPriceData(m);
-		double oPrice = twp.getOfferPrice();
-		return oPrice;
-	}
-
-
-	
-	public double getBidAmount(Market m) throws Exception {
-		
-		CalculatorDataManagerImpl cdmi = new CalculatorDataManagerImpl();
-		
-		TwoWayPrice twp = cdmi.getMarketPriceData(m);
-		double bAmt = twp.getBidAmount();
-		return bAmt;
-	}
-
-	
-	
+	}	
 	
 
 }
