@@ -14,13 +14,28 @@ In a Service Oriented Architecture (SOA), a software application is designed by 
 
 Following the SOA approach, the solution for the assignment is designed to provide the service Calculator which has a method to calculate the applyMarketValue.The implementation of the solution is written in JAVA language using Apache MAVEN as a software project management tool and Spring Framework.
 
+Below are some of the good practices to ensure high throughput of your system.However, some of these are out of scope of this solution.
+
+1. Classloading is a sequential process that involves IO to disk. Make sure all the classes for your main transaction flows are loaded upfront and that they never get evicted from the perm generation
+2. Model the business domain and ensure all your algorithms are O(1) or at least O(log n)
+3. OS tuning, appropriate hardware,software and device driver tuning.
+4. Keep all in memory
+5. Keep the systemunderutilized
+6. Keep reads sequential.
+7. Batching writes
+8. use caching algorithms
+9. non blocking
+10. asynchronous as much as possible
+
+For this solution i have used ConcurrentHashMap to hold the data in memory as I/O operation will kill the latency. ConcurrentHashMap is a non blocking datastructure that supports full concurrency of retrievals and adjustable expected concurrency for updates. There are ma
+
 The implementation of the service is built as java library as a jar artifact named vmap-calculator-0.0.1-SNAPSHOT.jar. Because there are no explicit integration requirements, the simplest decision was to create a java library, which could be integrated in all the JAVA technologies.
 
 Assumptions & Exceptions
 ========================
-+One market will contribute to one instrument
-+One instrument will get updates from many markets
-+The inputs will be from the spring xml context, only to retain the structure provided sample objects are created and used through the   application context, there by bypassing validations to the datascope.
-+As HashMap is used for storing the Market prices, it will always have the latest value for any Market at that given point in time.
+1. One market will contribute to one instrument
+2. One instrument will get updates from many markets
+3. The inputs will be from the spring xml context, only to retain the structure provided sample objects are created and used through the   application context, there by bypassing validations to the datascope.
+4. As HashMap is used for storing the Market prices, it will always have the latest value for any Market at that given point in time.
 
 To run this application, please execute maven clean install
