@@ -4,6 +4,7 @@ import com.ubs.calculator.model.Market;
 
 /**
  * MarketUpdate interface that implements two methods
+ * 
  * @author prabhuj
  * 
  *
@@ -12,24 +13,33 @@ import com.ubs.calculator.model.Market;
 public interface MarketUpdate {
 	/**
 	 * method to get the market
+	 * 
 	 * @return Market type value
-	 * @throws Exception An exception raised during the execution of the method due to an error
+	 * @throws Exception
+	 *             An exception raised during the execution of the method due to
+	 *             an error
 	 */
 	Market getMarket() throws Exception;
-	
+
 	/**
 	 * method to get the twowayprice
+	 * 
 	 * @return TwoWayPrice type value
-	 * @throws Exception  An exception raised during the execution of the method due to an error
+	 * @throws Exception
+	 *             An exception raised during the execution of the method due to
+	 *             an error
 	 */
-    TwoWayPrice getTwoWayPrice() throws Exception;
-    
-    /**
-	 * method to get the twowayprice
-	 * @return TwoWayPrice type value
-	 * @throws Exception  An exception raised during the execution of the method due to an error
-	 */
-    TwoWayPrice getTwoWayPrice(MarketUpdate mu) throws Exception;
+	TwoWayPrice getTwoWayPrice() throws Exception;
 
+	/**
+	 * method to get the twowayprice
+	 * 
+	 * @return TwoWayPrice type value
+	 * @param mu
+	 * @throws Exception
+	 *             An exception raised during the execution of the method due to
+	 *             an error
+	 */
+	TwoWayPrice getTwoWayPrice(MarketUpdate mu) throws Exception;
 
 }

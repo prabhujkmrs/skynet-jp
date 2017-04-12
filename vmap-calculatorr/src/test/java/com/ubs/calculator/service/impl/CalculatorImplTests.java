@@ -1,5 +1,6 @@
 package com.ubs.calculator.service.impl;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,14 +14,16 @@ import com.ubs.calculator.service.TwoWayPrice;
 import junit.framework.TestCase;
 
 public class CalculatorImplTests extends TestCase {
-	
+
+	Logger logger = Logger.getLogger(CalculatorImplTests.class);
+
 	ApplicationContext context = new ClassPathXmlApplicationContext("/spring.xml");
-	
+
 	@SuppressWarnings("deprecation")
 	@Test
 	public void test() throws Exception {
-		
-		
+
+		logger.info("Starting application test... ");
 		CalculatorImpl ci = new CalculatorImpl();
 		MarketUpdateImpl mu = new MarketUpdateImpl();
 		TwoWayPriceImpl twpl = new TwoWayPriceImpl();
@@ -35,12 +38,11 @@ public class CalculatorImplTests extends TestCase {
 		double bid = twp.getBid();
 		double offer = twp.getOffer();
 		String inst = twp.getInstrument().toString();
-		
-		System.out.println("Instrument : " + inst);
-		System.out.println("Bid : " + bid);
-		System.out.println("Offer : " + offer);
-		
+
+		logger.info("Instrument : " + inst);
+		logger.info("Bid : " + bid);
+		logger.info("Offer : " + offer);
+
 	}
-	
-	
+
 }
