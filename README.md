@@ -27,7 +27,7 @@ Below are some of the good practices to ensure high throughput of your system.Ho
 9. non blocking
 10. asynchronous as much as possible
 
-For this solution i have used ConcurrentHashMap to hold the data in memory as I/O operation will kill the latency. ConcurrentHashMap is a non blocking datastructure that supports full concurrency of retrievals and adjustable expected concurrency for updates. There are ma
+For this solution i have used ConcurrentHashMap to hold the data in memory as I/O operation will kill the latency. ConcurrentHashMap is a non blocking datastructure that supports full concurrency of retrievals and adjustable expected concurrency for updates.
 
 The implementation of the service is built as java library as a jar artifact named vmap-calculator-0.0.1-SNAPSHOT.jar. Because there are no explicit integration requirements, the simplest decision was to create a java library, which could be integrated in all the JAVA technologies.
 
