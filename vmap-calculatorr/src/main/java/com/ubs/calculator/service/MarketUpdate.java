@@ -23,5 +23,13 @@ public interface MarketUpdate {
 	 * @throws Exception  An exception raised during the execution of the method due to an error
 	 */
     TwoWayPrice getTwoWayPrice() throws Exception;
+    
+    /**
+	 * method to get the twowayprice
+	 * @return TwoWayPrice type value
+	 * @throws Exception  An exception raised during the execution of the method due to an error
+	 */
+    TwoWayPrice getTwoWayPrice(MarketUpdate mu) throws Exception;
+
 
 }

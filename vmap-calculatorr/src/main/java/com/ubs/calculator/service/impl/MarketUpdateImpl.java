@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.ubs.calculator.data.CalculatorDataManager;
+import com.ubs.calculator.data.impl.CalculatorDataManagerImpl;
 import com.ubs.calculator.model.Instrument;
 import com.ubs.calculator.model.Market;
 import com.ubs.calculator.model.MarketInstrument;
@@ -23,22 +25,27 @@ public class MarketUpdateImpl implements MarketUpdate{
 	private Market market;
 	private TwoWayPrice twowayprice;
 
-	@Override
-	public TwoWayPrice getTwoWayPrice() throws Exception {
-		TwoWayPriceImpl twp = new TwoWayPriceImpl();
-		Instrument inst = twp.getInstrument(this.getMarket());
+
+	public TwoWayPrice getTwoWayPrice(MarketUpdate mu) throws Exception {
+		TwoWayPriceImpl twp = (TwoWayPriceImpl) mu.getTwoWayPrice();
+		Instrument inst = twp.getInstrument(mu.getMarket());
 		
 		MarketInstrument mi = new MarketInstrument();
-		List<Market> mList = mi.getMarkets(inst);
-		double oSumNumerator = 0;
-		double oSumDenominator = 0;
-		double bSumNumerator = 0;
-		double bSumDenominator = 0;
+		List<Market> mList = mi.getmiMapList(inst);
+		//mList.add(mu.getMarket());
+		//mi.setmiMap(inst, mList);
+	
+		double bSumNumerator = twp.getBidAmount()*twp.getBidPrice();
+		double bSumDenominator = twp.getBidAmount();
+		double oSumNumerator = twp.getOfferAmount() * twp.getOfferPrice();
+		double oSumDenominator = twp.getOfferAmount();
 		for(Market m : mList ){
-			double bAmt = twp.getBidAmount(m);
-			double bPrice =twp.getBidPrice(m);
-			double oAmt =twp.getOfferAmount(m);
-			double oPrice =twp.getOfferPrice(m);
+			CalculatorDataManagerImpl cdm = new CalculatorDataManagerImpl();
+			TwoWayPriceImpl tw = (TwoWayPriceImpl) cdm.getMarketPriceData(m);
+			double bAmt = tw.getBidAmount();
+			double bPrice =tw.getBidPrice();
+			double oAmt =tw.getOfferAmount();
+			double oPrice =tw.getOfferPrice();
 			oSumNumerator = oSumNumerator+(oAmt*oPrice);
 			oSumDenominator=oSumDenominator+oAmt;
 			bSumNumerator = bSumNumerator+(bAmt*bPrice);
@@ -47,6 +54,11 @@ public class MarketUpdateImpl implements MarketUpdate{
 		twp.setBid(bSumNumerator/bSumDenominator);
 		twp.setOffer(oSumNumerator/oSumDenominator);
 		return twp;
+	}
+	
+	@Override
+	public TwoWayPrice getTwoWayPrice(){
+		return this.twowayprice;
 	}
 
 	public void setTwowayprice(TwoWayPrice twowayprice) {

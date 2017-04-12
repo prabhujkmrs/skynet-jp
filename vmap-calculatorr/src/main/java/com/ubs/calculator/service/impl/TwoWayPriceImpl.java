@@ -89,7 +89,7 @@ public class TwoWayPriceImpl implements TwoWayPrice {
 	
 	public Instrument getInstrument(Market market) {
 		
-		return instrument;
+		return this.instrument;
 	}
 
 

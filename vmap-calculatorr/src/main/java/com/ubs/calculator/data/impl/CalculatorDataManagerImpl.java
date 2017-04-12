@@ -10,7 +10,7 @@ import com.ubs.calculator.service.TwoWayPrice;
 
 public class CalculatorDataManagerImpl implements CalculatorDataManager {
 	
-	private Map<Market,TwoWayPrice> inputData;
+	private static Map<Market,TwoWayPrice> inputData=new ConcurrentHashMap<Market,TwoWayPrice>();
 	
 	public Map<Market, TwoWayPrice> getInputData() {
 		return inputData;
@@ -21,7 +21,6 @@ public class CalculatorDataManagerImpl implements CalculatorDataManager {
 	}
 
 	public CalculatorDataManagerImpl(){
-		inputData = new ConcurrentHashMap<Market,TwoWayPrice>();
 	}
 
 	@Override
