@@ -23,8 +23,9 @@ public class CalculatorDataManagerImpl implements CalculatorDataManager {
 	public void setInputData(Map<Market, TwoWayPrice> inputData) {
 		this.inputData = inputData;
 	}
-
-	public CalculatorDataManagerImpl() {
+	
+	public void addInputData(Market market, TwoWayPrice twoWayPrice) {
+		this.getInputData().put(market, twoWayPrice);
 	}
 
 	@Override

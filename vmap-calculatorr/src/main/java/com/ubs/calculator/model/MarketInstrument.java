@@ -1,5 +1,6 @@
 package com.ubs.calculator.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,17 +22,19 @@ public class MarketInstrument {
 		this.instrument = instrument;
 	}
 
-	public List<Market> getmiMapList(Instrument instrument) {
-		return miMap.get(instrument);
-	}
+	public List<Market> getMarketList(Instrument instrument) {
+        return miMap.get(instrument);
+    }
 
-	public void setmiMap(Instrument inst, List<Market> mList) {
-		// if ( ! (miMap.get(inst).add(market))){
-		// List<Market> markets = new ArrayList<>();
-		// markets.add(market);
-		miMap.put(inst, mList);
-		// }
+	public void addMarketInstrument(Instrument inst, Market market) {
+		if (null == miMap.get(inst)) {
+            List<Market> markets = new ArrayList<>();
+            markets.add(market);
+            miMap.put(inst, markets);
+        } else {
+            miMap.get(inst).add(market);
+        }
 
-	}
+    }
 
 }

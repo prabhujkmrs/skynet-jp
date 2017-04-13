@@ -1,11 +1,11 @@
 package com.ubs.calculator.service.impl;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.ubs.calculator.data.impl.CalculatorDataManagerImpl;
+
 import com.ubs.calculator.model.Instrument;
 import com.ubs.calculator.model.Market;
 import com.ubs.calculator.model.State;

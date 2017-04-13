@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.ubs.calculator.data.CalculatorDataManager;
 import com.ubs.calculator.data.impl.CalculatorDataManagerImpl;
 import com.ubs.calculator.model.Instrument;
 import com.ubs.calculator.model.Market;
@@ -27,21 +28,22 @@ public class MarketUpdateImpl implements MarketUpdate {
 	public TwoWayPrice getTwoWayPrice(MarketUpdate mu) throws Exception {
 		logger.info("Start-TwoWayPrice execution....");
 		try {
-			TwoWayPriceImpl twp = (TwoWayPriceImpl) mu.getTwoWayPrice();
+			TwoWayPrice twp = (TwoWayPriceImpl) mu.getTwoWayPrice();
 			Instrument inst = twp.getInstrument(mu.getMarket());
 
 			MarketInstrument mi = new MarketInstrument();
-			List<Market> mList = mi.getmiMapList(inst);
-			// mList.add(mu.getMarket());
-			// mi.setmiMap(inst, mList);
+            mi.addMarketInstrument(inst, mu.getMarket());
+            List<Market> mList = mi.getMarketList(inst);
 
-			double bSumNumerator = twp.getBidAmount() * twp.getBidPrice();
-			double bSumDenominator = twp.getBidAmount();
-			double oSumNumerator = twp.getOfferAmount() * twp.getOfferPrice();
-			double oSumDenominator = twp.getOfferAmount();
+            CalculatorDataManager cdmi = new CalculatorDataManagerImpl();
+            ((CalculatorDataManagerImpl)cdmi).addInputData(mu.getMarket(),mu.getTwoWayPrice());
+            double bSumNumerator = 0;
+            double bSumDenominator = 0;
+            double oSumNumerator = 0;
+            double oSumDenominator = 0;
 			for (Market m : mList) {
-				CalculatorDataManagerImpl cdm = new CalculatorDataManagerImpl();
-				TwoWayPriceImpl tw = (TwoWayPriceImpl) cdm.getMarketPriceData(m);
+				CalculatorDataManager cdm = new CalculatorDataManagerImpl();
+				TwoWayPrice tw = (TwoWayPriceImpl) cdm.getMarketPriceData(m);
 				double bAmt = tw.getBidAmount();
 				double bPrice = tw.getBidPrice();
 				double oAmt = tw.getOfferAmount();
@@ -51,8 +53,8 @@ public class MarketUpdateImpl implements MarketUpdate {
 				bSumNumerator = bSumNumerator + (bAmt * bPrice);
 				bSumDenominator = bSumDenominator + bAmt;
 			}
-			twp.setBid(bSumNumerator / bSumDenominator);
-			twp.setOffer(oSumNumerator / oSumDenominator);
+			((TwoWayPriceImpl)twp).setBid(bSumNumerator / bSumDenominator);
+			((TwoWayPriceImpl)twp).setOffer(oSumNumerator / oSumDenominator);
 			return twp;
 		} catch (Exception ex) {
 			logger.error("Error occured while calculating TwoWayPrice for " + mu + ".", ex);
